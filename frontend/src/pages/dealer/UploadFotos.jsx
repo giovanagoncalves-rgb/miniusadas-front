@@ -7,6 +7,7 @@ export default function UploadFotos({ listing, onBack }) {
   const inputRef = useRef()
   const [previews, setPreviews]  = useState([])
   const [uploading, setUploading] = useState(false)
+  const [sentCount, setSentCount] = useState(0)
 
   const handleFiles = (files) => {
     const arr = Array.from(files).slice(0, 20)
@@ -24,6 +25,7 @@ export default function UploadFotos({ listing, onBack }) {
       previews.forEach(p => formData.append('photos', p.file))
       await dealerApi.uploadPhotos(listing.id, formData)
       toast.success(`${previews.length} foto(s) enviada(s) com sucesso!`)
+      setSentCount(c => c + previews.length)
       setPreviews([])
     } catch (err) {
       toast.error(err.message)
@@ -39,7 +41,17 @@ export default function UploadFotos({ listing, onBack }) {
       </button>
 
       <h1 className="text-xl font-bold mb-1">Fotos do anúncio</h1>
-      <p className="text-sm text-gray-500 mb-6">{listing.title}</p>
+      <p className="text-sm text-gray-500 mb-4">{listing.title}</p>
+
+      <div className="bg-yanmar-red/[0.06] border border-yanmar-red/20 rounded-lg px-4 py-3 mb-6 text-sm text-gray-600">
+        Adicione boas fotos da máquina (a 1ª será a <strong>capa</strong>). Depois clique em <strong>Concluir</strong> e envie o anúncio para aprovação da YANMAR pelo painel.
+      </div>
+
+      {sentCount > 0 && (
+        <div className="bg-green-50 border border-green-200 rounded-lg px-4 py-3 mb-4 text-sm text-green-700">
+          ✅ {sentCount} foto(s) já enviada(s) para este anúncio.
+        </div>
+      )}
 
       {/* Zona de drop */}
       <div
@@ -86,6 +98,13 @@ export default function UploadFotos({ listing, onBack }) {
           </div>
         </>
       )}
+
+      {/* Concluir */}
+      <div className="mt-6 pt-6 border-t border-yanmar-border flex justify-end">
+        <Button variant={sentCount > 0 ? 'primary' : 'secondary'} onClick={onBack}>
+          Concluir e voltar aos anúncios
+        </Button>
+      </div>
     </div>
   )
 }

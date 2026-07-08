@@ -46,15 +46,9 @@ export default function FormAnuncio({ listing, onSaved, onBack }) {
         price:      Number(form.price),
         specs:      form.specs,
       }
-      if (isEdit) {
-        // PATCH listing — endpoint pode ser adicionado depois
-        // Por ora recria como novo (simplificação para MVP)
-        await dealerApi.create(payload)
-      } else {
-        await dealerApi.create(payload)
-      }
-      toast.success(isEdit ? 'Anúncio atualizado!' : 'Anúncio criado! Adicione fotos e envie para aprovação.')
-      onSaved()
+      const created = await dealerApi.create(payload)
+      toast.success('Anúncio criado! Agora adicione as fotos da máquina.')
+      onSaved(created)
     } catch (err) {
       toast.error(err.message)
     } finally {
@@ -121,7 +115,7 @@ export default function FormAnuncio({ listing, onSaved, onBack }) {
             Cancelar
           </Button>
           <Button type="submit" loading={loading} className="flex-1">
-            {isEdit ? 'Salvar alterações' : 'Criar anúncio'}
+            {isEdit ? 'Salvar alterações' : 'Criar e adicionar fotos →'}
           </Button>
         </div>
       </form>

@@ -30,7 +30,12 @@ export default function PainelDealer() {
   if (view === 'form') return (
     <FormAnuncio
       listing={selected}
-      onSaved={() => { setView('list'); refetch() }}
+      onSaved={(created) => {
+        refetch()
+        // Anúncio novo → vai direto para o upload de fotos.
+        if (created?.id) { setSelected(created); setView('photos') }
+        else setView('list')
+      }}
       onBack={() => setView('list')}
     />
   )
