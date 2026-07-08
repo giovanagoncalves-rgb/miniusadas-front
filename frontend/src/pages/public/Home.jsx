@@ -7,7 +7,8 @@ import {
 import { useFetch } from '@/hooks/useFetch'
 import { listingsApi } from '@/api'
 import MachineCard from '@/components/shared/MachineCard'
-import { Spinner, Empty } from '@/components/ui'
+import { Spinner } from '@/components/ui'
+import { MOCK_LISTINGS } from '@/utils/mockListings'
 
 const CATEGORIES = [
   { value: '',                      label: 'Categoria' },
@@ -73,7 +74,8 @@ export default function Home() {
     navigate(`/maquinas${qs ? '?' + qs : ''}`)
   }
 
-  const featuredList = featured?.data || []
+  // Usa os dados reais da API; se não houver, cai para as máquinas de exemplo.
+  const featuredList = featured?.data?.length ? featured.data : MOCK_LISTINGS
 
   return (
     <div>
@@ -84,7 +86,7 @@ export default function Home() {
       >
         <div
           className="absolute inset-0 opacity-20 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1606739211185-2c846d734a6d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1600&q=80')" }}
+          style={{ backgroundImage: "url('/img/hero.jpg')" }}
         />
 
         <div className="relative max-w-5xl mx-auto px-6 py-16 flex flex-col items-center text-center">
@@ -171,8 +173,6 @@ export default function Home() {
 
           {loading ? (
             <div className="flex justify-center py-16"><Spinner /></div>
-          ) : featuredList.length === 0 ? (
-            <Empty title="Nenhuma máquina disponível no momento" description="Volte em breve para conferir os novos equipamentos." />
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {featuredList.map(l => <MachineCard key={l.id} listing={l} />)}
@@ -247,7 +247,7 @@ export default function Home() {
           <div
             className="rounded-xl overflow-hidden relative flex items-end p-8 min-h-[260px]"
             style={{
-              backgroundImage: "url('https://images.unsplash.com/photo-1696441567908-6a04d49e1350?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800&q=80')",
+              backgroundImage: "url('/img/cta-comprador.jpg')",
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}

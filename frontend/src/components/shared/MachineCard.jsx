@@ -21,7 +21,13 @@ export default function MachineCard({ listing }) {
       {/* Foto */}
       <div className="relative overflow-hidden h-[180px] bg-gray-100">
         {cover_url
-          ? <img src={cover_url} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          ? <img
+              src={cover_url}
+              alt={title}
+              loading="lazy"
+              onError={(e) => { e.currentTarget.style.display = 'none' }}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
           : <div className="w-full h-full flex items-center justify-center text-gray-300 text-4xl">🚜</div>
         }
         <span className="absolute top-3 left-3 bg-yanmar-red text-white px-2 py-0.5 rounded-sm text-[0.68rem] font-bold uppercase tracking-wide">
