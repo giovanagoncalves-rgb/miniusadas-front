@@ -9,6 +9,11 @@ COPY package*.json pnpm-lock.yaml* ./
 RUN pnpm install --no-frozen-lockfile
 
 COPY . .
+
+# VITE_API_URL precisa estar disponível em tempo de BUILD (Vite injeta no bundle).
+# O Railway passa as variáveis do serviço como build args; o ARG abaixo as recebe.
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
 RUN pnpm build
 
 # ── Serve estático com nginx leve ─────────────
