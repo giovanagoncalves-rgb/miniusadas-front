@@ -4,6 +4,7 @@ import { ToastContainer } from '@/components/ui'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ProtectedRoute from '@/components/shared/ProtectedRoute'
+import ErrorBoundary from '@/components/shared/ErrorBoundary'
 
 // Páginas públicas
 import Home           from '@/pages/public/Home'
@@ -21,7 +22,7 @@ function Layout({ children }) {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1"><ErrorBoundary>{children}</ErrorBoundary></main>
       <Footer />
     </div>
   )

@@ -83,3 +83,51 @@ export const MOCK_LISTINGS = [
     state: 'GO',
   },
 ]
+
+// Especificações técnicas de exemplo por categoria.
+const MOCK_SPECS = {
+  mini_escavadeira: {
+    'Potência do motor': '14,5 CV',
+    'Peso operacional': '1.720 kg',
+    'Profundidade de escavação': '2.300 mm',
+    'Largura da esteira': '230 mm',
+    'Capacidade da caçamba': '0,04 m³',
+    'Tipo de motor': 'Diesel 3 cilindros',
+  },
+  mini_pa_carregadeira: {
+    'Potência do motor': '26 CV',
+    'Peso operacional': '2.100 kg',
+    'Capacidade de carga': '600 kg',
+    'Altura de despejo': '2.200 mm',
+    'Tração': '4x4',
+    'Tipo de motor': 'Diesel 3 cilindros',
+  },
+  mini_retroescavadeira: {
+    'Potência do motor': '40 CV',
+    'Peso operacional': '2.800 kg',
+    'Profundidade de escavação': '2.600 mm',
+    'Capacidade da caçamba': '0,08 m³',
+    'Tração': '4x2',
+    'Tipo de motor': 'Diesel 3 cilindros',
+  },
+}
+
+// Fotos extras de exemplo para o carrossel da página de detalhes.
+const EXTRA_PHOTOS = ['/img/hero.jpg', '/img/cta-comprador.jpg']
+
+// Retorna um anúncio de exemplo (formato da página de detalhes) para um id,
+// usado como fallback quando a API não está disponível no preview.
+export function getMockListing(id) {
+  const base = MOCK_LISTINGS.find(l => String(l.id) === String(id)) || MOCK_LISTINGS[0]
+  return {
+    ...base,
+    description:
+      `${base.title} em excelente estado de conservação, revisada e com procedência garantida por concessionária autorizada YANMAR. ` +
+      `Máquina com ${base.hours_used} horas de uso, ano ${base.year}, pronta para trabalhar.`,
+    photos: [{ url: base.cover_url }, ...EXTRA_PHOTOS.map(url => ({ url }))],
+    specs: MOCK_SPECS[base.category] || {},
+    dealer_phone: '(19) 3333-4444',
+    dealer_email: 'contato@concessionaria.com.br',
+    related: MOCK_LISTINGS.filter(l => l.id !== base.id).slice(0, 4),
+  }
+}

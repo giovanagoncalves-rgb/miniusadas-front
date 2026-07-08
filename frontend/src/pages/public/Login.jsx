@@ -26,8 +26,12 @@ export default function Login() {
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-yanmar-red rounded-xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-xl">M</span>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="text-yanmar-red font-extrabold tracking-tight text-xl leading-none">YANMAR</span>
+            <span className="flex items-center pl-3 border-l border-yanmar-border">
+              <span className="font-bold text-yanmar-dark text-base">Mini</span>
+              <span className="font-normal text-yanmar-red text-base">usadas</span>
+            </span>
           </div>
           <h1 className="text-xl font-bold text-yanmar-dark">Acesso ao painel</h1>
           <p className="text-sm text-gray-500 mt-1">Exclusivo para concessionárias autorizadas YANMAR</p>
