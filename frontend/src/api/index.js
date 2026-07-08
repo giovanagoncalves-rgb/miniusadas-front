@@ -37,6 +37,7 @@ export const adminApi = {
     ).toString()
     return api.get(`/admin/listings${qs ? '?' + qs : ''}`)
   },
+  getById: (id)           => api.get(`/admin/listings/${id}`),
   approve: (id)           => api.patch(`/admin/listings/${id}/approve`),
   reject:  (id, reason)   => api.patch(`/admin/listings/${id}/reject`, { reason }),
 }
